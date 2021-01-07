@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const userRouter = require('./userRouter');
 // const animeRouter = require('./animeRouter')
-const { Controller } = require('../controllers/userController');
+// const UserController = require('../controllers/UserController');
 const { authentication } = require('../middlewares/auth');
 
-router.use('/', UserRouter);
+router.use('/', userRouter);
 router.use(authentication);
 // router.use('/anime', animeRouter);
+
+module.exports = router
