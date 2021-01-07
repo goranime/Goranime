@@ -1,0 +1,44 @@
+/* No CSS *//*# sourceMappingURL=styles.css.map */
+
+/* *{
+  background-color: #0C0B0B;
+} */
+html {
+  background: url("/client/images/img_stmzu_yeroblu.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 120%;
+  background-attachment: fixed;
+}
+
+body{
+  background: transparent;
+}
+
+#register-form{
+  background-color: transparent;
+}
+
+.logo {
+  width:128px;   
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+}
+
+.white{
+  background-color: rgba(246, 246, 246, 0.95);
+}
+
+.transparent {
+  background-color: rgba(246, 246, 246, 0);
+}
+
+.card {
+  margin: auto;
+  width:25%;
+  margin-top:10vh;
+  border-radius: 8px;
+}
+
