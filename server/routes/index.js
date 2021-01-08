@@ -10,7 +10,7 @@ const googleOAuthRouter = require("./googleOAuthRouter")
 const { authentication } = require('../middlewares/auth');
 
 router.use("/covid", covidApiRouter)
-router.use("/", googleOAuthRouter)
+router.use("/google", googleOAuthRouter)
 router.use('/', userRouter);
 router.use('/covid', covidApiRouter);
 router.use('/quote', quotesApiRouter)
