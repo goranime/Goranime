@@ -7,13 +7,24 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+#alert{
+  position: fixed;
+  z-index: 1;
+  top: 5%;
+  left: 0;
+  right: 0;
+  margin: auto 5%;
+
+  width: 90%;
+}
+
 #landing-page {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  background: url("/client/images/img_stmzu_yeroblu.png");
+  background: url("/images/img_stmzu_yeroblu.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 120%;
