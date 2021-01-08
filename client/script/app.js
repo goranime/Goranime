@@ -25,7 +25,10 @@ $(document).ready(() => {
   if (localStorage.access_token) {
     $('#landing-page').hide();
     $('#dashboard-page').show();
+
     animeAPI();
+    showCovidApi()
+
     // $('#dashboard-page').hide(); //debug
     // $('#landing-page').show();
   } else {
@@ -83,31 +86,6 @@ function onSignIn(googleUser) {
   .fail((xhr, status) => {
 
   })
-
- 
-
-
-  // $.ajax({
-  //   method: 'POST',
-  //   url: 'http://localhost:5500/users/loginGoogle',
-  //   data: { id_token }
-  // })
-  //   .done(response => {
-  //     // console.log(response);
-
-  //     localStorage.setItem('access_token', response.access_token);
-  //     // TODO : hide landing page
-  //     // TODO : show todo page
-  //   })
-  //   .fail((xhr, status) => {
-
-  //   });
-
-  // var profile = googleUser.getBasicProfile();
-  // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  // console.log('Name: ' + profile.getName());
-  // console.log('Image URL: ' + profile.getImageUrl());
-  // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
 
 //logout
@@ -180,6 +158,7 @@ const alertSect = (type, msg)  => {
   };
 };
 
+
 function animeAPI(){
   console.log('API BERHASIL MEN');
   $.ajax({
@@ -222,5 +201,30 @@ function animeAPI(){
       
     }
     
+  })
+}
+
+// Show covid api
+function showCovidApi() {
+  $.ajax({
+    method: "GET",
+    url: `${baseUrl}/covid/cases`,
+    headers: {
+      access_token: localStorage.access_token
+    }
+  })
+  .done(response => {
+    console.log(response);
+
+    $("#covidApiArea").empty()
+    $("#covidApiArea").append(
+      ` <h5 class="card-title" style="color:#0B0A0A; font-size: 16px;">Oh no! COVID-19 confirmed case is ${(response.confirmed).toLocaleString('en')} and
+          death case is ${(response.deaths).toLocaleString('en')} now!</h5>
+        <h6 class="card-subtitle mt-3 text-muted" style="font-size: 14px;">That's why we stay home and watch anime!</h6>
+      `
+    )
+  })
+  .fail(err => {
+    console.log(err);
   })
 }
