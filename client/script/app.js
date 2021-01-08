@@ -20,15 +20,15 @@ $(document).ready(() => {
   });
 
   if (localStorage.access_token) {
-    // $('#landing-page').hide();
-    // $('#dashboard-page').show();
-    $('#dashboard-page').hide(); //debug
-    $('#landing-page').show();
-  } else {
-    $('#landing-page').hide(); // debug
+    $('#landing-page').hide();
     $('#dashboard-page').show();
-    // $('#dashboard-page').hide();
+    // $('#dashboard-page').hide(); //debug
     // $('#landing-page').show();
+  } else {
+    // $('#landing-page').hide(); // debug
+    // $('#dashboard-page').show();
+    $('#dashboard-page').hide();
+    $('#landing-page').show();
   }
 });
 
@@ -48,7 +48,11 @@ $('#login-btn').click(event => {
     $('#landing-page').hide();
     $('#dashboard-page').show();
   })
-  .fail(err => {console.log(err)})
+  .fail(err => {
+    const alert = alertSect('failed', "Your Email or Password is invalid");
+
+    $(alert).appendTo('#alert');
+  })
   .always(() => {
     $('#email-login').val('');
     $('#password-login').val('');
@@ -66,6 +70,9 @@ function onSignIn(googleUser) {
   .done(response => {
     console.log(response);
     localStorage.setItem("access_token", response.access_token)
+
+    $('#landing-page').hide();
+    $('#dashboard-page').show();
   })
   .fail((xhr, status) => {
 
@@ -96,12 +103,14 @@ function onSignIn(googleUser) {
 
 //logout
 $("#logout").click((event) => {
-  event.preventDefault()
-  localStorage.clear()
+  event.preventDefault();
+  localStorage.clear();
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
     console.log('User signed out.');
   });
+  $('#dashboard-page').hide();
+  $('#landing-page').show();
 })
 
 
@@ -111,8 +120,6 @@ $('#register-btn').click(event => {
   let email = $('#email-register').val();
   let password = $('#password-register').val();
 
-
-  console.log(name, email, password);
   //TODO: Handle AJAX
 
   $.ajax({
@@ -121,12 +128,17 @@ $('#register-btn').click(event => {
     data:{name, email,password}
   })
   .done(response => {
-    console.log(response)
+    const alert = alertSect('success', 'Your account is created, now let\'s login!');
 
+    $(alert).appendTo('#alert');
     $('#register-form').hide();
     $('#login-form').fadeIn();
   })
-  .fail(err => {console.log(err)})
+  .fail(err => {
+    const alert = alertSect('failed', err.responseJSON[0]);
+
+    $(alert).appendTo('#alert');
+  })
   .always(() => {
     $('#name-register').val('');
     $('#email-register').val('');
@@ -134,3 +146,27 @@ $('#register-btn').click(event => {
   })
 
 });
+
+const alertSect = (type, msg)  => {
+  if (type === 'success') {
+    const temp = `
+    <div class="alert alert-success alert-dismissable fade show" role="alert">
+      <strong style="color:#1E1E1E">Success</strong> ${msg}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" style="color:#1E1E1E">&times;</span>
+      </button>
+    </div>
+    `;
+    return temp;
+  } else if (type === 'failed') {
+    const temp = `
+    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+      <strong style="color:#1E1E1E">Error</strong> ${msg}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true" style="color:#1E1E1E">&times;</span>
+      </button>
+    </div>
+    `;
+    return temp;
+  };
+};
