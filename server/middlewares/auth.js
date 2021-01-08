@@ -19,7 +19,7 @@ async function authentication(req, res, next) {
     req.User = currentUser;
     next();
   }
-  catch {
+  catch (err) {
     next(err);
     // res.send(err)
   }

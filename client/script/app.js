@@ -37,6 +37,33 @@ $('#login-btn').click(event => {
   //TODO: Handle AJAX
 });
 
+function onSignIn(googleUser) {
+  const id_token = googleUser.getAuthResponse().id_token;
+  console.log(id_token);
+
+  // $.ajax({
+  //   method: 'POST',
+  //   url: 'http://localhost:5500/users/loginGoogle',
+  //   data: { id_token }
+  // })
+  //   .done(response => {
+  //     // console.log(response);
+
+  //     localStorage.setItem('access_token', response.access_token);
+  //     // TODO : hide landing page
+  //     // TODO : show todo page
+  //   })
+  //   .fail((xhr, status) => {
+
+  //   });
+
+  // var profile = googleUser.getBasicProfile();
+  // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  // console.log('Name: ' + profile.getName());
+  // console.log('Image URL: ' + profile.getImageUrl());
+  // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
 $('#register-btn').click(event => {
   event.preventDefault();
   let name = $('#name-register').val();
