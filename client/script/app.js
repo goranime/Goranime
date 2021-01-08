@@ -40,6 +40,18 @@ $('#login-btn').click(event => {
 function onSignIn(googleUser) {
   const id_token = googleUser.getAuthResponse().id_token;
   console.log(id_token);
+  $.ajax({
+    method: "POST",
+    url: `${baseUrl}/google/googleLogin`,
+    data: { id_token }
+  })
+  .done(response => {
+    console.log(response);
+    localStorage.setItem("access_token", response.access_token)
+  })
+  .fail((xhr, status) => {
+
+  })
 
   // $.ajax({
   //   method: 'POST',
@@ -63,6 +75,17 @@ function onSignIn(googleUser) {
   // console.log('Image URL: ' + profile.getImageUrl());
   // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 }
+
+//logout
+$("#logout").click((event) => {
+  event.preventDefault()
+  localStorage.clear()
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+})
+
 
 $('#register-btn').click(event => {
   event.preventDefault();
