@@ -1,4 +1,4 @@
-const { OAuth2Client } = require('google-auth-library');
+const {OAuth2Client} = require('google-auth-library');
 const { User } = require("../models")
 const { generateToken } = require("../helpers/jwt")
 
@@ -7,6 +7,7 @@ class GoogleOAuthController {
   static googleLogin (req, res, next) {
     const { id_token } = req.body
     let email
+    let name
 
     const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     client.verifyIdToken({
@@ -15,6 +16,7 @@ class GoogleOAuthController {
     })
     .then(ticket => {
       const payload = ticket.getPayload();
+      name = payload.name
       email = payload.email
       return User.findOne({
         where: {
@@ -25,6 +27,7 @@ class GoogleOAuthController {
     .then(user => {
       if (!user) {
         return User.create({
+          name,
           email,
           password: Math.floor(Math.random() * 999999) + "pass"
         })
@@ -35,6 +38,7 @@ class GoogleOAuthController {
     .then(user => {
       const payload = {
         id: user.id,
+        name: user.name,
         email: user.email
       }
       const access_token =  generateToken(payload)

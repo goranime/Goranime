@@ -3,7 +3,8 @@ const axios = require("axios")
 class animeController {
 
     static getAll(req, res, next) {
-        const url = `https://api.myanimelist.net/v2/anime?q=one&limit=50`;
+        const searchBy = 'one'
+        const url = `https://api.myanimelist.net/v2/anime?q=${searchBy}&limit=50`;
         const config = { headers: { Authorization: 'Bearer ' + process.env.API_ANIME_LIST } };
 
         axios.get(url, config)
