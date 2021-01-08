@@ -27,6 +27,7 @@ Server URL : http://localhost:3000
 ​
 - `POST /register`
 - `POST /login`
+- `POST /google/loginGoogle`
 - `GET /anime`
 - `GET /anime/:animeId`
 - `GET /covid/cases`
@@ -75,7 +76,7 @@ _Response (500)_
 
 ## POST/login
 
->get all todos list
+>Login to your account
 
 
 _Request Header_
@@ -96,18 +97,12 @@ _Response (200)_
 }
 ```
 
-_Response(401- notLoggedIn)_
+
+_Response(401- InvalidPassword)_
 ```
 {
-  "Error" :  "notLoggedIn"
-  "message": "please login first"
-}
-```
-_Response(401- wrongLogin)_
-```
-{
-  "Error" :  "wrongLogin"
-  "message": "invalid email or password"
+  "Error" :  "InvalidPassword"
+  "message": "Wrong password, please try again"
 }
 ```
 
@@ -140,37 +135,37 @@ _Response (200)_
     {
     "id": 1,
     "title": "aaaaaaa",
-    "sybopsys": "aaaaaaa",
+    "synopsys": "aaaaaaa",
     "rating": "aaaaaaaaa",
     "imgUrl": "http"
   },
   {
     "id": 2,
     "title": "aaaaaaa",
-    "sybopsys": "aaaaaaa",
+    "synopsys": "aaaaaaa",
     "rating": "aaaaaaaaa",
     "imgUrl": "http"
   },
   {
     "id": 3,
     "title": "aaaaaaa",
-    "sybopsys": "aaaaaaa",
+    "synopsys": "aaaaaaa",
     "rating": "aaaaaaaaa",
     "imgUrl": "http"
   }
 }
 ```
-_Response(401- notLoggedIn)_
+_Response(401- NOT_LOGGED_IN)_
 ```
 {
-  "Error" :  "notLoggedIn"
-  "message": "please login first"
+  "Error" :  "UnregisteredUser"
+  "message": "Please login first"
 }
 ```
-_Response(404 - not found)_
+_Response(404 - NOT_FOUND)_
 ```
 {
-  "Error": "resourceNotFound",
+  "Error": "NotFound",
   "message": "not found"
 }
 ```
@@ -255,13 +250,7 @@ _Response(200)_
   "deaths": <number of deaths cases>
 }
 ```
-_Response(400- bad request)_
-```
-{
-  "Error" :  VALIDATION_ERROR
-  "message": "Title cannot be empty, Description cannot be empty, Due date must be today or more than today, Due Date cannot be empty"
-}
-```
+
 
 _Response (500)_
 ```
