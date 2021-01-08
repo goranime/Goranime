@@ -20,11 +20,15 @@ $(document).ready(() => {
   });
 
   if (localStorage.access_token) {
-    // TODO : hide landing page
-    // TODO : show todo page
+    // $('#landing-page').hide();
+    // $('#dashboard-page').show();
+    $('#dashboard-page').hide(); //debug
+    $('#landing-page').show();
   } else {
-    // TODO : show landing page
-    // TODO : hide todo page
+    $('#landing-page').hide(); // debug
+    $('#dashboard-page').show();
+    // $('#dashboard-page').hide();
+    // $('#landing-page').show();
   }
 });
 
@@ -33,8 +37,22 @@ $('#login-btn').click(event => {
   let email = $('#email-login').val();
   let password = $('#password-login').val();
 
-  console.log(email, password);
-  //TODO: Handle AJAX
+  $.ajax({
+    method:'POST',
+    url: `${baseUrl}/login`,
+    data:{email,password}
+  })
+  .done(response => {
+    localStorage.setItem('access_token', response.access_token);
+
+    $('#landing-page').hide();
+    $('#dashboard-page').show();
+  })
+  .fail(err => {console.log(err)})
+  .always(() => {
+    $('#email-login').val('');
+    $('#password-login').val('');
+  })
 });
 
 function onSignIn(googleUser) {
@@ -93,6 +111,26 @@ $('#register-btn').click(event => {
   let email = $('#email-register').val();
   let password = $('#password-register').val();
 
+
   console.log(name, email, password);
   //TODO: Handle AJAX
+
+  $.ajax({
+    method:'POST',
+    url: `${baseUrl}/register`,
+    data:{name, email,password}
+  })
+  .done(response => {
+    console.log(response)
+
+    $('#register-form').hide();
+    $('#login-form').fadeIn();
+  })
+  .fail(err => {console.log(err)})
+  .always(() => {
+    $('#name-register').val('');
+    $('#email-register').val('');
+    $('#password-register').val('');
+  })
+
 });

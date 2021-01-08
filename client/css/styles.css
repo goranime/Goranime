@@ -98,11 +98,16 @@ h2 {
   font-weight: 500;
 }
 
+
+
 ul {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
   padding: 0;
+  align-self: center;
+  margin-left: 128px;
+  margin-right: 128px;
 }
 ul .booking-card {
   position: relative;
@@ -116,6 +121,8 @@ ul .booking-card {
   -moz-border-radius: 10px;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
   background-position: center center;
   background-size: cover;
   text-align: center;
@@ -133,19 +140,19 @@ ul .booking-card::before {
   transition: 0.3s;
 }
 ul .booking-card .book-container {
-  height: 200px;
+  height: 10px; /*200px*/
 }
 ul .booking-card .informations-container {
   flex: 1 0 auto;
   padding: 20px;
-  background: #f0f0f0;
+  background: #f0f0f0da;
   transform: translateY(206px);
   transition: 0.3s;
 }
 ul .booking-card .informations-container .title {
   position: relative;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
   font-weight: bold;
   font-size: 1.2em;
 }
@@ -183,6 +190,7 @@ ul .booking-card .informations-container .more-information .info-and-date-contai
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.8), 0 2px 4px 0 rgba(0, 0, 0, 0.8);
   background: white;
   font-weight: bold;
   font-size: 0.9em;
@@ -232,4 +240,20 @@ ul .booking-card:hover .informations-container .more-information {
 
 h1 {
   margin: 10px 20px;
+}
+
+.text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.titleText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }
