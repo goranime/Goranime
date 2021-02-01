@@ -5,11 +5,12 @@ class QuoteApiController {
     let quoteUrl = 'https://animechanapi.xyz/api/quotes/random'
     axios.get(quoteUrl)
       .then(result => {
-        let aniQuote = result.aniQuote.data
-        res.status(200).json({
-          "quote": aniQuote.quote,
-          "character": aniQuote.character,
-          "anime": aniQuote.anime
+        let aniQuote = result.aniQuote.data.forEach(el => {
+          res.status(200).json({
+            "quote": el.quote,
+            "character": el.character,
+            "anime": el.anime
+          })
         })
       })
       .catch(err => {
